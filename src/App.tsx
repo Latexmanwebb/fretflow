@@ -139,6 +139,7 @@ export const App: React.FC = () => {
   const prevBarRef = useRef(1);
   const isLoopCountInRunningRef = useRef(false);
   const isPlayingRef = useRef(false);
+  const isPreparingPlaybackRef = useRef(false);
   const isCountingInRef = useRef(false);
   const isStartingPlaybackRef = useRef(false);
   const hasPlayedIntoSongRef = useRef(false);
@@ -390,6 +391,16 @@ export const App: React.FC = () => {
       isPausedRef.current = true;
       return;
     }
+
+    if (isPreparingPlaybackRef.current) return;
+    isPreparingPlaybackRef.current = true;
+    let ready = false;
+    try {
+      ready = await viewerRef.current?.preparePlayback() ?? false;
+    } finally {
+      isPreparingPlaybackRef.current = false;
+    }
+    if (!ready) return;
 
     const effectiveBpm = Math.round(currentBpm * speed);
 

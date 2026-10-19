@@ -80,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           title="Return to Library"
         >
           <img
-            src="/logo.jpg"
+            src={`${import.meta.env.BASE_URL}logo.jpg`}
             alt="FretFlow Logo"
             className="w-full h-full object-cover"
             onError={(e) => {

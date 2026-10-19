@@ -171,6 +171,7 @@ try {
 }
 
 export interface AlphaTabViewerRef {
+  preparePlayback: () => Promise<boolean>;
   play: () => boolean;
   pause: () => void;
   playPause: () => void;
@@ -231,6 +232,13 @@ function getAssetUrl(rel: string): string {
     return (import.meta.env.BASE_URL || './') + clean;
   }
 }
+
+// Keep worker entry points outside Vite's main bundle. The renderer option
+// useWorkers=false does not disable the separate audio synthesizer worker.
+alphaTab.Environment.initializeMain(
+  (_settings, name) => new Worker(getAssetUrl('alphaTab.worker.mjs'), { type: 'module', name }),
+  (context) => context.audioWorklet.addModule(getAssetUrl('alphaTab.worklet.mjs'))
+);
 
 interface AlphaTabViewerProps {
   initialTex?: string;
@@ -478,21 +486,6 @@ export const AlphaTabViewer = forwardRef<AlphaTabViewerRef, AlphaTabViewerProps>
 
         (window as any).__alphaTabApi = api;
 
-        // Proactive soundfont preload
-        fetch(getAssetUrl('soundfont/sonivox.sf2'))
-          .then((r) => {
-            if (!r.ok) throw new Error(`HTTP ${r.status}`);
-            return r.arrayBuffer();
-          })
-          .then((buf) => {
-            if (apiRef.current) {
-              apiRef.current.loadSoundFont(new Uint8Array(buf), false);
-            }
-          })
-          .catch((err) => {
-            console.warn('Direct soundfont load fallback:', err);
-          });
-
         api.scoreLoaded.on((score) => {
           setIsLoading(false);
           // If in Focus Mode, do not overwrite parent song metadata or totalBars with the single sliced measure
@@ -599,19 +592,26 @@ export const AlphaTabViewer = forwardRef<AlphaTabViewerRef, AlphaTabViewerProps>
 
     // Expose control methods via imperative handle
     useImperativeHandle(ref, () => ({
+      preparePlayback: () => {
+        const api = apiRef.current;
+        if (!api) return Promise.resolve(false);
+        // Activate during the user's click, before awaiting the count-in.
+        api.player?.output?.activate();
+        if (api.isReadyForPlayback) return Promise.resolve(true);
+        return new Promise<boolean>((resolve) => {
+          const finish = (ready: boolean) => {
+            clearTimeout(timeout);
+            api.playerReady.off(onReady);
+            if (!ready) setErrorMsg('Playback audio could not load. Reload and try again.');
+            resolve(ready);
+          };
+          const onReady = () => finish(true);
+          const timeout = window.setTimeout(() => finish(false), 15000);
+          api.playerReady.on(onReady);
+        });
+      },
       play: () => {
         if (!apiRef.current) return false;
-        try {
-          const playerAny = apiRef.current as any;
-          const audioCtx =
-            playerAny._player?._instance?.output?._audioContext ||
-            playerAny._player?.output?._audioContext;
-          if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-        } catch (e) {
-          // ignore
-        }
         return apiRef.current.play();
       },
       pause: () => {
@@ -620,17 +620,6 @@ export const AlphaTabViewer = forwardRef<AlphaTabViewerRef, AlphaTabViewerProps>
       },
       playPause: () => {
         if (!apiRef.current) return;
-        try {
-          const playerAny = apiRef.current as any;
-          const audioCtx =
-            playerAny._player?._instance?.output?._audioContext ||
-            playerAny._player?.output?._audioContext;
-          if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-        } catch (e) {
-          // ignore
-        }
         apiRef.current.playPause();
       },
       stop: () => {
