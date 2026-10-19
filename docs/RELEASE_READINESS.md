@@ -7,8 +7,9 @@ The repository is a source-only early alpha under GPL-3.0-only. It is suitable f
 | Check | Result |
 | --- | --- |
 | Locked dependency install | npm ci --ignore-scripts passed. |
-| TypeScript and production bundle | Passed after approved removal of four unused legacy AI files. |
-| Source browser rendering | Library and Bach notation/tab rendered in the local browser. |
+| TypeScript and production bundle | Passed after approved removal of four unused legacy AI files. Initial GitHub Actions build also passed. |
+| Packaged renderer correspondence | Rebuilt index-C4QZG0ve.js and index-DIccmiBi.css match the supplied app ASAR byte-for-byte. |
+| Source browser rendering / transport | Library and Bach notation/tab rendered; the playback cursor visibly advanced to bar 8 and stop returned to bar 1. Audible output was not independently checked. |
 | Supplied macOS ZIP executable | Mach-O arm64, bundle version 1.0.0. |
 | Packaged Electron main/preload | Main file matches supplied source; static REA inspection completed for these entrypoints only. |
 | Strict bundle signature verification | Failed: code has no resources but signature indicates they must be present. Ad hoc executable signature, no Developer ID team. |

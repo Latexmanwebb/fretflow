@@ -17,7 +17,7 @@ body:
     id: environment
     attributes:
       label: Environment
-      description: Include OS version, hardware, browser/version or desktop app, and local AI provider/model if relevant.
+      description: Include OS version, hardware, browser/version or desktop app.
     validations:
       required: true
   - type: textarea

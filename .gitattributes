@@ -1,0 +1,6 @@
+# Identify bundled upstream artifacts without rewriting their bytes.
+public/alphaTab* linguist-vendored=true
+public/font/** linguist-vendored=true
+docs/DEPENDENCIES.json linguist-generated=true
+docs/ASSET_PROVENANCE.json linguist-generated=true
+docs/INPUT_ARTIFACTS.json linguist-generated=true
