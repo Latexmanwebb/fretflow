@@ -20,7 +20,7 @@ Learning an instrument takes enough patience already. FretFlow brings score play
 
 There is no FretFlow account, subscription, or paid feature tier. Use scores you created or have permission to use. FretFlow does not retrieve songs from Soundslice, Songsterr, or other paid libraries, and is not affiliated with those services.
 
-> **Early alpha:** the browser interface and production build are checked, but the application still has [known limitations](docs/KNOWN_ISSUES.md). The supplied macOS 1.0.0 build failed signature verification and is **not offered here as a verified download**. This repository is the source preview; a tested macOS release is a priority.
+> **Early alpha:** the browser interface and production build are checked, but the application still has [known limitations](docs/KNOWN_ISSUES.md). The rebuilt Apple Silicon Mac package passes strict signature verification and a local playback check. It is ad hoc signed, **not Apple notarized**; a public desktop release still needs Developer ID signing and a clean-machine test.
 
 ## What you can do
 
@@ -89,7 +89,7 @@ npm run desktop
 
 For development with Vite, keep `npm run dev` running in one terminal and run `npm run desktop:dev` in another. The desktop development command expects Vite on port 5173.
 
-The existing `desktop:dist` script produces a macOS app directory. Public distribution still requires a reproducible build, correct signing, appropriate microphone configuration, and a clean-machine test. See [release readiness](docs/RELEASE_READINESS.md).
+Run `npm run desktop:dist` on a Mac to produce `release/FretFlow-1.0.0-alpha.2-mac-arm64.zip` and its SHA-256 checksum. The script stages signing outside synced folders, verifies the app, then extracts and verifies the final ZIP again. This local build is ad hoc signed, not Apple notarized. See [Mac build instructions](docs/MAC_BUILD.md) and [release readiness](docs/RELEASE_READINESS.md).
 
 ## Scores and exports
 

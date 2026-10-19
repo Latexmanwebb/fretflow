@@ -1,6 +1,14 @@
 # Release readiness — 2026-10-19
 
-## Current public preview
+## Rebuilt alpha.2 package — 2026-10-19
+
+The original audit below is retained as history. A fresh Apple Silicon build now passes `codesign --verify --deep --strict`, including after extracting its final ZIP. The packaged app loads local notation, its desktop bridge, the FretFlow logo, and the corrected title. A playback diagnostic measured nonzero guitar samples (peak 0.424), advancing MIDI ticks, pause, and resume. This checks synthesized audio; listening quality, live microphone input, native import/export round trips, and a clean-machine installation remain unverified.
+
+The live Pages app was tested through its Play button: the countdown completed, playback advanced to bar 9, and synthesized guitar samples were nonzero (peak 0.301). Its logo loaded at 1024 pixels wide and the AI title was removed. Local browser pause/resume was also checked.
+
+Packaging includes an application icon, microphone usage description, audio/JIT entitlements, and an ad hoc signature. No Developer ID identity is available on the build Mac. The package is **not Apple notarized**, and no Gatekeeper distribution pass is claimed. See [Mac build instructions](MAC_BUILD.md).
+
+## Original public preview audit
 
 The repository is a source-only early alpha under GPL-3.0-only. It is suitable for transparent development and feedback; it is not a claim that the supplied macOS binary is ready for everyday distribution.
 

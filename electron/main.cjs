@@ -1,5 +1,6 @@
-const { app, BrowserWindow, ipcMain, dialog, shell, session } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, session, systemPreferences } = require('electron');
 const path = require('path');
+const { pathToFileURL } = require('url');
 
 let mainWindow = null;
 
@@ -19,19 +20,34 @@ function createWindow() {
     }
   });
 
-  // Handle media permissions exclusively for mic tuner (deny all others)
-  session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
-    if (permission === 'media' || permission === 'microphone') {
-      callback(true);
-    } else {
+  const devUrl = 'http://localhost:5173';
+  const prodPath = path.join(__dirname, '../dist/index.html');
+  const isDev = !app.isPackaged && (process.env.VITE_DEV_SERVER_URL || process.argv.includes('--dev'));
+  const trustedUrl = isDev ? `${devUrl}/` : pathToFileURL(prodPath).href;
+  const isTrustedFrame = (contents, details) => contents === mainWindow?.webContents &&
+    details.isMainFrame && details.requestingUrl === trustedUrl;
+
+  // Only the app's own tuner can request audio; camera and remote frames are denied.
+  session.defaultSession.setPermissionCheckHandler((contents, permission, origin, details) =>
+    permission === 'media' && details.mediaType === 'audio' && isTrustedFrame(contents, details));
+  session.defaultSession.setPermissionRequestHandler(async (contents, permission, callback, details) => {
+    if (permission !== 'media' || !isTrustedFrame(contents, details) ||
+        !details.mediaTypes?.length || details.mediaTypes.some(type => type !== 'audio')) {
+      callback(false);
+      return;
+    }
+    try {
+      callback(process.platform !== 'darwin' || await systemPreferences.askForMediaAccess('microphone'));
+    } catch {
       callback(false);
     }
   });
 
-  const devUrl = 'http://localhost:5173';
-  const prodPath = path.join(__dirname, '../dist/index.html');
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (url !== trustedUrl) event.preventDefault();
+  });
 
-  if (process.env.VITE_DEV_SERVER_URL || process.argv.includes('--dev')) {
+  if (isDev) {
     mainWindow.loadURL(devUrl);
   } else {
     // Check if dist/index.html exists
@@ -39,7 +55,8 @@ function createWindow() {
     if (fs.existsSync(prodPath)) {
       mainWindow.loadFile(prodPath);
     } else {
-      mainWindow.loadURL(devUrl);
+      dialog.showErrorBox('FretFlow could not start', 'The bundled web app is missing. Rebuild with npm run desktop:dist.');
+      app.quit();
     }
   }
 

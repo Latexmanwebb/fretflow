@@ -21,11 +21,11 @@ FretFlow is an early alpha. This list records findings from the supplied source 
 ## AI and desktop
 
 - The latest interface does not include an AI tutor. Legacy AI modules were removed to restore the source build.
-- The Electron media permission handler automatically permits media requests without checking the requested audio/video type or originating URL.
+- The desktop tuner now limits media permission to audio requested by the app main frame and asks macOS for microphone permission. Live microphone capture, denial, and pitch accuracy still need a separate runtime check.
 - The explicit desktop packaging command targets Apple Silicon. Intel Mac support and distribution signing/notarization require separate verification.
 
 ## Before calling a release verified
 
 The CI workflow compiles TypeScript and builds the web bundle only. Verify score rendering, playback, looping, tempo changes, import/export round trips, save/reopen behavior, microphone permission denial and approval, offline operation, and the actual packaged macOS app separately. Record the tested app version, macOS version, and hardware.
 
-SoundFont files and their license notice match the pinned alphaTab package byte-for-byte; see [asset provenance](ASSET_PROVENANCE.md). Logo origins and score-edition provenance remain unverified by this technical review. The supplied macOS ZIP fails strict signature verification; do not call it a verified desktop release.
+SoundFont files and their license notice match the pinned alphaTab package byte-for-byte; see [asset provenance](ASSET_PROVENANCE.md). Logo origins and score-edition provenance remain unverified by this technical review. The original supplied macOS ZIP failed strict signature verification. The rebuilt alpha.2 package passes that check and local synthesized playback, but is ad hoc signed and not Apple notarized.
