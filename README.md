@@ -10,7 +10,7 @@ Slow down a difficult passage, loop it, and build it back up—without a subscri
 [![Status: early alpha](https://img.shields.io/badge/status-early_alpha-orange)](docs/KNOWN_ISSUES.md)
 [![Production build](https://github.com/Latexmanwebb/fretflow/actions/workflows/build.yml/badge.svg)](https://github.com/Latexmanwebb/fretflow/actions/workflows/build.yml)
 
-[Get started](#get-started) · [What you can do](#what-you-can-do) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/Latexmanwebb/fretflow/issues/new/choose)
+**[Try the live demo](https://latexmanwebb.github.io/fretflow/)** · [Get started](#get-started) · [What you can do](#what-you-can-do) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/Latexmanwebb/fretflow/issues/new/choose)
 
 </div>
 
@@ -46,6 +46,10 @@ Screenshot of the current browser interface. The desktop distribution has separa
 </details>
 
 ## Get started
+
+### Try it in your browser
+
+**[Open the live FretFlow demo](https://latexmanwebb.github.io/fretflow/)** — no installation or account required.
 
 ### Run locally
 
