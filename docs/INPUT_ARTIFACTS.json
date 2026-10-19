@@ -1,0 +1,22 @@
+[
+  {
+    "name": "fretflow.zip",
+    "bytes": 5316305,
+    "sha256": "8d7ea7f750fb685db4949a85e77aa2d38b29bcc124d858af9d7800e22963d4c8"
+  },
+  {
+    "name": "fretflow-review.zip",
+    "bytes": 191947,
+    "sha256": "8bd357b27ece07f8aa2a3aa34d74b6442519baa7edc52fe0ac4b65fc2b0092be"
+  },
+  {
+    "name": "FretFlow-macOS-arm64.zip",
+    "bytes": 136884301,
+    "sha256": "72d1cdf8d49fbe35e5b6cc199884d64198f65c454b0263bc54dfbd356f9017e3"
+  },
+  {
+    "name": "FretFlow-1.0.0-arm64.dmg",
+    "bytes": 138365256,
+    "sha256": "1af544341dbeb1a120bb4999559c43fc83af44c76c22c0c09ffef72772629e60"
+  }
+]

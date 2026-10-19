@@ -1,0 +1,69 @@
+{
+  "name": "fretflow",
+  "private": true,
+  "version": "1.0.0-alpha.1",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "desktop": "electron .",
+    "desktop:dev": "electron . --dev",
+    "desktop:pack": "tsc && vite build && electron-packager . \"FretFlow\" --platform=darwin --arch=arm64 --out=release --overwrite --prune=true",
+    "desktop:dist": "tsc && vite build && electron-builder --mac"
+  },
+  "build": {
+    "appId": "com.fretflow.app",
+    "productName": "FretFlow",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "target": [
+        "dir"
+      ],
+      "category": "public.app-category.music"
+    }
+  },
+  "dependencies": {
+    "@coderline/alphatab": "^1.3.2",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@types/jszip": "^3.4.0",
+    "canvas-confetti": "^1.9.4",
+    "jszip": "^3.10.2",
+    "lucide-react": "^1.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.4.4",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.4.20",
+    "electron": "^41.7.1",
+    "electron-builder": "^26.15.3",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  },
+  "license": "GPL-3.0-only",
+  "description": "Open-source guitar practice with notation, tablature, loops, tempo drills, and a local tuner.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Latexmanwebb/fretflow.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Latexmanwebb/fretflow/issues"
+  },
+  "homepage": "https://github.com/Latexmanwebb/fretflow#readme"
+}

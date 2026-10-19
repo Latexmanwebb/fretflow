@@ -1,0 +1,20 @@
+[
+  {
+    "file": "public/soundfont/sonivox.sf2",
+    "source": "@coderline/alphatab@1.8.4/dist/soundfont/sonivox.sf2",
+    "sha256": "4978cf37e7164206f2d22dc4fdf4020ffe040787210bf781e31bdc79961f59ef",
+    "byte_identical": true
+  },
+  {
+    "file": "public/soundfont/sonivox.sf3",
+    "source": "@coderline/alphatab@1.8.4/dist/soundfont/sonivox.sf3",
+    "sha256": "d39beb7cd349278455b44e7689e35e3c1f5ed9ef80118485846537929df8f7c0",
+    "byte_identical": true
+  },
+  {
+    "file": "public/soundfont/LICENSE",
+    "source": "@coderline/alphatab@1.8.4/dist/soundfont/LICENSE",
+    "sha256": "57d801cd718614be838c71f35cf3dcbf5c011fa20130c194a447483dfa2771c5",
+    "byte_identical": true
+  }
+]
