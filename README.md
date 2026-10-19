@@ -9,8 +9,9 @@ Slow down a difficult passage, loop it, and build it back up—without a subscri
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-amber.svg)](LICENSE)
 [![Status: early alpha](https://img.shields.io/badge/status-early_alpha-orange)](docs/KNOWN_ISSUES.md)
 [![Production build](https://github.com/Latexmanwebb/fretflow/actions/workflows/build.yml/badge.svg)](https://github.com/Latexmanwebb/fretflow/actions/workflows/build.yml)
+[![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://latexmanwebb.github.io/fretflow/)
 
-[Get started](#get-started) · [What you can do](#what-you-can-do) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/Latexmanwebb/fretflow/issues/new/choose)
+[Try the live demo](https://latexmanwebb.github.io/fretflow/) · [Get started](#get-started) · [What you can do](#what-you-can-do) · [Roadmap](docs/ROADMAP.md) · [Contribute](CONTRIBUTING.md) · [Report a bug](https://github.com/Latexmanwebb/fretflow/issues/new/choose)
 
 </div>
 
